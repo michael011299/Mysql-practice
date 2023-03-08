@@ -22,31 +22,67 @@ ORDER BY length ASC
 LIMIT 10;
 
 -- now return only the movie titles -- 
-SELECT * FROM films
+SELECT 'title' FROM films
 ORDER BY length ASC
-RETURNING title
 LIMIT 10;
 
 -- Find all the movies with deleted scenes -- 
 
+SELECT * FROM film
+WEHERE special_features LIKE '%Deleted Scenes%';
+
+-- Answer - 503 
+
 -- how many distinct countries are there -- 
 
--- what are the naes of all the languages in the database (sorted alphabetically) --
+SELECT count(distinct country) FROM country;
 
+-- Answer - 109
+
+-- what are the names of all the languages in the database (sorted alphabetically) --
+SELECT name FROM language ORDER BY name;
+
+-- Answer :
+English
+French
+German
+Italian
+Japanese
+Mandarin --
 
 -- which actor has appeared in the most films --
 select actor_id, COUNT(*) FROM film_actor group by actor_id order by count(*) DESC LIMIT 1;
 SELECT last_name FROM actor WHERE actor_id = 42;
-Answer: Tom Miranda
+-- Answer: Tom Miranda --
 
 -- What is the average run time of films in the database --
 select 
 avg(length) 
 from
 film
-Answer : '115.2720'
+-- Answer : '115.2720'--
 
 -- what is the average running time of films by category--
+select category, avg(length) from film_list 
+group by category;
+
+-- Answer : 
+Documentary	108.7500
+Horror	112.4821
+Family	114.7826
+Foreign	121.6986
+Comedy	115.8276
+Sports	127.5068
+Music	113.6471
+Classics	111.6667
+Animation	111.0152
+Action	111.6094
+New	111.1270
+Sci-Fi	108.1967
+Drama	119.8852
+Travel	113.3750
+Games	127.8361
+Children	109.8000
 
 -- how many movies have robots in them? --
 select 
@@ -56,9 +92,13 @@ film
 WHERE
 description like '%robot%';
 
-Answer = 77
+-- Answer = 77 --
 
 -- Find the movies with the longest run time --
+SELECT * FROM film 
+ORDER BY length
+LIMIT 10;
+
 '141', 'CHICAGO NORTH', 'A Fateful Yarn of a Mad Cow And a Waitress who must Battle a Student in California', 2006, '1', NULL, '6', '4.99', '185', '11.99', 'PG-13', 'Deleted Scenes,Behind the Scenes', '2006-02-15 05:03:42'
 '182', 'CONTROL ANTHEM', 'A Fateful Documentary of a Robot And a Student who must Battle a Cat in A Monastery', 2006, '1', NULL, '7', '4.99', '185', '9.99', 'G', 'Commentaries', '2006-02-15 05:03:42'
 '212', 'DARN FORRESTER', 'A Fateful Story of a A Shark And a Explorer who must Succumb a Technical Writer in A Jet Boat', 2006, '1', NULL, '7', '4.99', '185', '14.99', 'G', 'Deleted Scenes', '2006-02-15 05:03:42'
@@ -78,6 +118,9 @@ film
 WHERE
 release_year = 2010;
 
-Answer = 0
+-- Answer = 0 --
 
 -- which last names are not repeated --
+SELECT count(distinct last_name) FROM actor;
+
+-- Answer: 121 --
